@@ -1,64 +1,69 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from "react";
 import { BaseSyntheticEvent } from "../../types/Events";
+import { Todo } from "../../types/Todo";
 import { css } from "@emotion/react";
 
 interface Props {
-  newTodo: (arg: string) => void;
+  todo: Todo;
+  editTodo: (a: string, b: string) => void;
 }
 
-const addInput = css({
+const editInput = css({
   backgroundColor: "#fbc531",
   border: "2px solid #000",
   borderRadius: "4px",
   padding: "6px",
-  marginRight: "8px",
+  margin: "8px",
   minWidth: "200px",
+
 });
 
-const addButton = css({
+const saveButton = css({
   backgroundColor: "#f5f6fa",
   border: "1px solid #95a5a6",
   cursor: "pointer",
   padding: "6px 16px",
   borderRadius: "4px",
+  marginBottom: "8px",
+  textAlign: "right",
   "&:hover": {
     backgroundColor: "#dcdde1",
   },
 });
 
-const NewTodo: React.FC<Props> = (props) => {
-  const [todo, setTodo] = useState("");
+const EditTodo: React.FC<Props> = (props) => {
+  const [todo, setTodo] = useState({ ...props.todo });
 
   const submitHandler = (event: BaseSyntheticEvent) => {
     event.preventDefault();
 
-    if (todo.trim().length === 0) {
+    if (todo.value.trim().length === 0) {
       return;
     }
 
-    props.newTodo(todo);
-    setTodo("");
+    props.editTodo(todo.id, todo.value);
   };
 
   const todoHandler = (event: BaseSyntheticEvent) => {
-    setTodo(event.target.value);
+    setTodo((prevState: Todo) => {
+      return { ...prevState, value: event.target.value };
+    });
   };
 
   return (
     <form onSubmit={submitHandler}>
       <input
-        css={addInput}
+        css={editInput}
         type="text"
-        placeholder="Nueva tarea"
-        value={todo}
+        value={todo.value}
         onChange={todoHandler}
       />
-      <button css={addButton} type="submit">
-        Agregar
+      <button css={saveButton} type="submit">
+        Guardar
       </button>
     </form>
   );
 };
 
-export default NewTodo;
+export default EditTodo;
