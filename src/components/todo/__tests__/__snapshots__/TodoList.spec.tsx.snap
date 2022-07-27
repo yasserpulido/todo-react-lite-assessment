@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoList Should TodoList to match Snapshot 1`] = `
+<div>
+  <ul
+    class="css-r3gwee-TodoList"
+  >
+    <li>
+      <input
+        id="t01"
+        type="checkbox"
+      />
+      <label
+        class="css-0"
+      >
+        Hacer una prueba
+      </label>
+    </li>
+    <li>
+      <input
+        id="t02"
+        type="checkbox"
+      />
+      <label
+        class="css-0"
+      >
+        Hacer dos prueba
+      </label>
+    </li>
+  </ul>
+</div>
+`;

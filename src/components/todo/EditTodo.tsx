@@ -52,7 +52,7 @@ const EditTodo: React.FC<Props> = (props) => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} aria-label="form">
       <input
         css={editInput}
         type="text"

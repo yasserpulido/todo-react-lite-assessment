@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewTodo Should NewTodo form to match Snapshot 1`] = `
+<div>
+  <form
+    aria-label="form"
+  >
+    <input
+      class="css-fmchn6-NewTodo"
+      placeholder="Nueva tarea"
+      type="text"
+      value=""
+    />
+    <button
+      class="css-1rpjkl-NewTodo"
+      type="submit"
+    >
+      Agregar
+    </button>
+  </form>
+</div>
+`;

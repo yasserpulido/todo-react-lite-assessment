@@ -29,30 +29,30 @@ const addButton = css({
 });
 
 const NewTodo: React.FC<Props> = (props) => {
-  const [todo, setTodo] = useState("");
+  const [text, setText] = useState("");
 
   const submitHandler = (event: BaseSyntheticEvent) => {
     event.preventDefault();
 
-    if (todo.trim().length === 0) {
+    if (text.trim().length === 0) {
       return;
     }
 
-    props.createTodo(todo);
-    setTodo("");
+    props.createTodo(text);
+    setText("");
   };
 
   const todoHandler = (event: BaseSyntheticEvent) => {
-    setTodo(event.target.value);
+    setText(event.target.value);
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} aria-label="form">
       <input
         css={addInput}
         type="text"
         placeholder="Nueva tarea"
-        value={todo}
+        value={text}
         onChange={todoHandler}
       />
       <button css={addButton} type="submit">

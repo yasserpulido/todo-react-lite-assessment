@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditTodo Should EditTodo form to match Snapshot 1`] = `
+<div>
+  <form
+    aria-label="form"
+  >
+    <input
+      class="css-14oliof-EditTodo"
+      type="text"
+      value="Hacer una prueba"
+    />
+    <button
+      class="css-1g7u9vd-EditTodo"
+      type="submit"
+    >
+      Guardar
+    </button>
+  </form>
+</div>
+`;
