@@ -2,26 +2,9 @@
 import React, { useState } from "react";
 import NewTodo from "../components/todo/NewTodo";
 import TodoList from "../components/todo/TodoList";
-import { Todo as TodoType } from "../types/Todo";
 import { css } from "@emotion/react";
-
-const DUMMY_DATA: TodoType[] = [
-  {
-    id: "t01",
-    value: "Aprender TypeScript",
-    isDone: false,
-  },
-  {
-    id: "t02",
-    value: "Hacer Tarea",
-    isDone: true,
-  },
-  {
-    id: "t03",
-    value: "Entregar Tarea",
-    isDone: false,
-  },
-];
+import todoStore from "../store/todoStore";
+import { observer } from "mobx-react";
 
 const todoCard = css`
   margin: 4rem auto;
@@ -56,40 +39,18 @@ const formWrap = css({
 });
 
 const Todo: React.FC = () => {
-  const [todos, setTodos] = useState(DUMMY_DATA);
   const [showDone, setShowDone] = useState(false);
 
-  const newTodoHandler = (todo: string): void => {
-    const idGenerated = Math.floor(Math.random() * 100).toString();
+  const createTodoHandler = (text: string): void => {
+    todoStore.createTodo(text);
+  };
 
-    setTodos((prevState: TodoType[]) => {
-      return [...prevState, { id: idGenerated, value: todo, isDone: false }];
-    });
+  const updateTodoHandler = (id: string, text: string) => {
+    todoStore.updateTodo(id, text);
   };
 
   const doneToggleHandler = (id: string, checked: boolean): void => {
-    const n = todos;
-
-    n.forEach((value) => {
-      if (value.id === id) {
-        value.isDone = checked;
-      }
-    });
-
-    setTodos(() => {
-      return [...n];
-    });
-  };
-
-  const editTodoHandler = (id: string, value: string) => {
-    const updatedTodo = todos.map((todo) => {
-      if (todo.id === id) {
-        return { ...todo, value };
-      }
-      return todo;
-    });
-
-    setTodos(updatedTodo);
+    todoStore.doneToggle(id, checked);
   };
 
   const showDoneHandler = () => {
@@ -97,8 +58,8 @@ const Todo: React.FC = () => {
   };
 
   const todosFilter = showDone
-    ? todos
-    : todos.filter((todo) => todo.isDone === showDone);
+    ? todoStore.todos
+    : todoStore.todos.filter((todo) => todo.done === showDone);
 
   return (
     <div css={todoCard}>
@@ -107,15 +68,15 @@ const Todo: React.FC = () => {
         <button css={showDoneButton} type="button" onClick={showDoneHandler}>
           {!showDone ? "Mostrar Completadas" : "Quitar Completadas"}
         </button>
-        <NewTodo newTodo={newTodoHandler} />
+        <NewTodo createTodo={createTodoHandler} />
       </div>
       <TodoList
         todos={todosFilter}
         doneToggle={doneToggleHandler}
-        editTodo={editTodoHandler}
+        updateTodo={updateTodoHandler}
       />
     </div>
   );
 };
 
-export default Todo;
+export default observer(Todo);

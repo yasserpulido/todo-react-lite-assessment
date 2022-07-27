@@ -8,7 +8,7 @@ import { css } from "@emotion/react";
 interface Props {
   todos: Todo[];
   doneToggle: (a: string, b: boolean) => void;
-  editTodo: (a: string, b: string) => void;
+  updateTodo: (a: string, b: string) => void;
 }
 
 const listStyle = css`
@@ -28,7 +28,7 @@ const TodoList: React.FC<Props> = (props) => {
   };
 
   const editTodoHandler = (id: string, value: string) => {
-    props.editTodo(id, value);
+    props.updateTodo(id, value);
     setShowEdit({ id: "", isEdit: false });
   };
 
@@ -45,14 +45,14 @@ const TodoList: React.FC<Props> = (props) => {
           <input
             type="checkbox"
             id={todo.id}
-            checked={todo.isDone}
+            checked={todo.done}
             onChange={doneHandler}
           />
           <label
-            css={todo.isDone ? labelCheck : ""}
+            css={todo.done ? labelCheck : ""}
             onClick={() => showEditHandler(todo)}
           >
-            {todo.value}
+            {todo.text}
           </label>
           {showEdit.isEdit && showEdit.id === todo.id && (
             <EditTodo todo={todo} editTodo={editTodoHandler} />

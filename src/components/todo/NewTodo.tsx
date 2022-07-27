@@ -4,7 +4,7 @@ import { BaseSyntheticEvent } from "../../types/Events";
 import { css } from "@emotion/react";
 
 interface Props {
-  newTodo: (arg: string) => void;
+  createTodo: (a: string) => void;
 }
 
 const addInput = css({
@@ -14,6 +14,7 @@ const addInput = css({
   padding: "6px",
   marginRight: "8px",
   minWidth: "200px",
+  outline: "none",
 });
 
 const addButton = css({
@@ -37,7 +38,7 @@ const NewTodo: React.FC<Props> = (props) => {
       return;
     }
 
-    props.newTodo(todo);
+    props.createTodo(todo);
     setTodo("");
   };
 

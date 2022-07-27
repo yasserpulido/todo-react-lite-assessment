@@ -16,7 +16,7 @@ const editInput = css({
   padding: "6px",
   margin: "8px",
   minWidth: "200px",
-
+  outline: "none",
 });
 
 const saveButton = css({
@@ -38,16 +38,16 @@ const EditTodo: React.FC<Props> = (props) => {
   const submitHandler = (event: BaseSyntheticEvent) => {
     event.preventDefault();
 
-    if (todo.value.trim().length === 0) {
+    if (todo.text.trim().length === 0) {
       return;
     }
 
-    props.editTodo(todo.id, todo.value);
+    props.editTodo(todo.id, todo.text);
   };
 
   const todoHandler = (event: BaseSyntheticEvent) => {
     setTodo((prevState: Todo) => {
-      return { ...prevState, value: event.target.value };
+      return { ...prevState, text: event.target.value };
     });
   };
 
@@ -56,7 +56,7 @@ const EditTodo: React.FC<Props> = (props) => {
       <input
         css={editInput}
         type="text"
-        value={todo.value}
+        value={todo.text}
         onChange={todoHandler}
       />
       <button css={saveButton} type="submit">
